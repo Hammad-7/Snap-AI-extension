@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1400, initial-scale=1.0">
+    <title>SnapAI — Marquee Promo (1400x560)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 1400px;
+            height: 560px;
+            overflow: hidden;
+        }
+
+        body {
+            background: #0F0F14;
+            font-family: 'DM Sans', sans-serif;
+            color: #F1F0F5;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.10) 0%, transparent 60%);
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -200px;
+            right: 200px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 60%);
+        }
+
+        .layout {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            padding: 0 80px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .left {
+            flex: 0 0 440px;
+        }
+
+        .icon-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-name span {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .headline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .headline em {
+            font-style: normal;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #9291A5;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 380px;
+        }
+
+        .providers {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .provider-badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: #1A1A24;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #B0AFBF;
+        }
+
+        .provider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Right side: 3 mockup cards */
+        .right {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            min-width: 0;
+        }
+
+        .card {
+            background: #1A1A24;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            overflow: hidden;
+            flex: 1;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .card:nth-child(2) {
+            margin-top: 24px;
+        }
+
+        .card:nth-child(3) {
+            margin-top: 48px;
+        }
+
+        .card-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-header-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .card-header-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9291A5;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        /* Card 1: Toolbar mockup */
+        .toolbar-mock {
+            display: flex;
+            gap: 6px;
+        }
+
+        .toolbar-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .text-preview {
+            background: #22222F;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-top: 12px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #9291A5;
+        }
+
+        .text-preview .highlight-text {
+            background: rgba(79, 70, 229, 0.2);
+            border-bottom: 2px solid #4F46E5;
+            color: #F1F0F5;
+            padding: 1px 2px;
+        }
+
+        /* Card 2: Side panel mockup */
+        .chat-msg {
+            background: #22222F;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #B0AFBF;
+        }
+
+        .chat-msg.user {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(124, 58, 237, 0.2));
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            color: #F1F0F5;
+        }
+
+        .chat-msg strong {
+            color: #F1F0F5;
+        }
+
+        .chat-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            background: #22222F;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 11px;
+            color: #9291A5;
+        }
+
+        /* Card 3: Settings mockup */
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            font-size: 12px;
+            color: #9291A5;
+        }
+
+        .setting-value {
+            font-size: 12px;
+            color: #F1F0F5;
+            font-weight: 500;
+        }
+
+        .setting-key {
+            background: #22222F;
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-size: 11px;
+            font-family: monospace;
+            color: #06D6A0;
+        }
+
+        .toggle {
+            width: 32px;
+            height: 18px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            position: relative;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="layout">
+        <div class="left">
+            <div class="icon-row">
+                <svg width="44" height="44" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="pmBg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#4F46E5" />
+                            <stop offset="1" stop-color="#7C3AED" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="128" height="128" rx="28" fill="url(#pmBg)" />
+                    <path d="M32 44 L32 36 Q32 32 36 32 L44 32" stroke="white" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round" fill="none" />
+                    <path d="M96 84 L96 92 Q96 96 92 96 L84 96" stroke="white" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round" fill="none" />
+                    <path d="M72 34 L54 62 L66 62 L56 94 L80 58 L66 58 L78 34 Z" fill="white" />
+                    <circle cx="88" cy="38" r="2.5" fill="white" opacity="0.7" />
+                    <circle cx="94" cy="48" r="1.5" fill="white" opacity="0.5" />
+                </svg>
+                <div class="brand-name">Snap<span>AI</span></div>
+            </div>
+
+            <div class="headline">AI-Powered Text<br>Analysis, <em>Right<br>Where You Read</em></div>
+
+            <p class="subtitle">Select any text on the web and get instant explanations, summaries, grammar fixes, and key points from your favorite AI provider.</p>
+
+            <div class="providers">
+                <div class="provider-badge">
+                    <div class="provider-dot" style="background: #10A37F;"></div>
+                    OpenAI
+                </div>
+                <div class="provider-badge">
+                    <div class="provider-dot" style="background: #D97706;"></div>
+                    Anthropic
+                </div>
+                <div class="provider-badge">
+                    <div class="provider-dot" style="background: #4285F4;"></div>
+                    Gemini
+                </div>
+                <div class="provider-badge">
+                    <div class="provider-dot" style="background: #536DFE;"></div>
+                    DeepSeek
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <!-- Card 1: Floating Toolbar -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-dot" style="background: #4F46E5;"></div>
+                    <div class="card-header-title">Floating Toolbar</div>
+                </div>
+                <div class="card-body">
+                    <div class="toolbar-mock">
+                        <div class="toolbar-btn" style="background: #4F46E5;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 1 4 12.9V17H8v-2.1A7 7 0 0 1 12 2z"/></svg>
+                        </div>
+                        <div class="toolbar-btn" style="background: #7C3AED;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg>
+                        </div>
+                        <div class="toolbar-btn" style="background: #06D6A0;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        </div>
+                        <div class="toolbar-btn" style="background: #F59E0B;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="6" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="4" cy="18" r="1.5"/><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/></svg>
+                        </div>
+                    </div>
+                    <div class="text-preview">
+                        The theory of <span class="highlight-text">quantum entanglement suggests that particles can be linked</span> across vast distances...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Side Panel -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-dot" style="background: #7C3AED;"></div>
+                    <div class="card-header-title">Side Panel</div>
+                </div>
+                <div class="card-body">
+                    <div class="chat-msg user">Explain this passage about quantum entanglement</div>
+                    <div class="chat-msg"><strong>Quantum entanglement</strong> is when two particles become connected so that measuring one instantly affects the other...</div>
+                    <div class="chat-input">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9291A5" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+                        Ask a follow-up...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Settings -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-dot" style="background: #06D6A0;"></div>
+                    <div class="card-header-title">Settings</div>
+                </div>
+                <div class="card-body">
+                    <div class="setting-row">
+                        <span class="setting-label">Provider</span>
+                        <span class="setting-value">OpenAI</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Model</span>
+                        <span class="setting-value">GPT-4.1 Nano</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">API Key</span>
+                        <span class="setting-key">sk-...7xQ2</span>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Status</span>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

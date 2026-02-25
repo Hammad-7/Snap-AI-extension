@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+.claude/

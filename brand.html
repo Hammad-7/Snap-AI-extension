@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapAI — Brand Assets</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #4F46E5;
+            --brand-secondary: #7C3AED;
+            --brand-accent: #06D6A0;
+            --brand-warm: #F59E0B;
+            --bg-dark: #0F0F14;
+            --bg-card: #1A1A24;
+            --bg-card-hover: #22222F;
+            --text-primary: #F1F0F5;
+            --text-secondary: #9291A5;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -40%;
+            left: -20%;
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 32px 100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 72px;
+            animation: fadeUp 0.8s ease;
+        }
+
+        .header-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--brand-accent);
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #F1F0F5 30%, #9291A5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        /* Icon showcase */
+        .icon-hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 64px;
+            padding: 64px 0;
+            animation: fadeUp 0.8s ease 0.1s both;
+        }
+
+        .icon-main {
+            position: relative;
+        }
+
+        .icon-main svg {
+            filter: drop-shadow(0 20px 60px rgba(79, 70, 229, 0.3));
+            transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .icon-main:hover svg {
+            transform: scale(1.05) translateY(-4px);
+        }
+
+        .icon-main::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 40px;
+            background: radial-gradient(ellipse, rgba(79, 70, 229, 0.2) 0%, transparent 70%);
+            filter: blur(10px);
+        }
+
+        .icon-info {
+            max-width: 360px;
+        }
+
+        .icon-info h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .icon-info h2 span {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .icon-info p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Grid of icon sizes */
+        .sizes-grid {
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 40px;
+            padding: 48px 0;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s ease 0.2s both;
+        }
+
+        .size-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .size-item .icon-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .size-item .icon-wrapper:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(79, 70, 229, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .size-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Logo variations */
+        .logo-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            animation: fadeUp 0.8s ease 0.3s both;
+        }
+
+        .logo-card {
+            border-radius: 20px;
+            padding: 48px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(79, 70, 229, 0.15);
+        }
+
+        .logo-card.dark {
+            background: var(--bg-card);
+        }
+
+        .logo-card.light {
+            background: #F8F7FC;
+        }
+
+        .logo-card.gradient {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #9333EA 100%);
+            border-color: transparent;
+        }
+
+        .logo-card.dark-solid {
+            background: #0A0A0F;
+            border-color: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Color palette */
+        .palette {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s ease 0.4s both;
+        }
+
+        .color-chip {
+            flex: 1;
+            min-width: 140px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            transition: transform 0.3s ease;
+        }
+
+        .color-chip:hover {
+            transform: translateY(-2px);
+        }
+
+        .color-swatch {
+            height: 100px;
+        }
+
+        .color-meta {
+            background: var(--bg-card);
+            padding: 14px 16px;
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .color-hex {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: 'DM Sans', monospace;
+        }
+
+        /* Typography */
+        .type-showcase {
+            animation: fadeUp 0.8s ease 0.5s both;
+        }
+
+        .type-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .type-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .type-row:last-child {
+            border-bottom: none;
+        }
+
+        .type-sample-outfit {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .type-sample-dm {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 22px;
+        }
+
+        .type-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .icon-hero {
+                flex-direction: column;
+                gap: 32px;
+                text-align: center;
+            }
+
+            .logo-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="header-label">Brand Identity</div>
+            <h1>SnapAI — Brand Assets</h1>
+            <p>A complete brand kit for SnapAI, the AI-powered Chrome extension for instant text insights.</p>
+        </div>
+
+        <!-- PRIMARY ICON -->
+        <section class="section">
+            <div class="section-title">Primary Icon</div>
+            <div class="icon-hero">
+                <div class="icon-main">
+                    <!-- Main App Icon 128px -->
+                    <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="bgGrad" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#4F46E5" />
+                                <stop offset="100%" stop-color="#7C3AED" />
+                            </linearGradient>
+                            <linearGradient id="boltGrad" x1="52" y1="28" x2="76" y2="100"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#FFFFFF" />
+                                <stop offset="100%" stop-color="#E0DDFF" />
+                            </linearGradient>
+                            <filter id="innerGlow">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+                                <feOffset dx="0" dy="2" result="offset" />
+                                <feComposite in="SourceGraphic" in2="offset" operator="over" />
+                            </filter>
+                            <linearGradient id="sheen" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="white" stop-opacity="0.15" />
+                                <stop offset="50%" stop-color="white" stop-opacity="0" />
+                                <stop offset="100%" stop-color="white" stop-opacity="0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Rounded square background -->
+                        <rect width="128" height="128" rx="28" fill="url(#bgGrad)" />
+                        <!-- Subtle top sheen -->
+                        <rect width="128" height="128" rx="28" fill="url(#sheen)" />
+                        <!-- Selection bracket left -->
+                        <path d="M32 44 L32 36 Q32 32 36 32 L44 32" stroke="white" stroke-opacity="0.5" stroke-width="3"
+                            stroke-linecap="round" fill="none" />
+                        <!-- Selection bracket right bottom -->
+                        <path d="M96 84 L96 92 Q96 96 92 96 L84 96" stroke="white" stroke-opacity="0.5" stroke-width="3"
+                            stroke-linecap="round" fill="none" />
+                        <!-- Lightning bolt / snap symbol -->
+                        <path d="M72 34 L54 62 L66 62 L56 94 L80 58 L66 58 L78 34 Z" fill="url(#boltGrad)"
+                            filter="url(#innerGlow)" />
+                        <!-- Sparkle dots -->
+                        <circle cx="88" cy="38" r="2.5" fill="white" opacity="0.7" />
+                        <circle cx="94" cy="48" r="1.5" fill="white" opacity="0.5" />
+                        <circle cx="38" cy="86" r="2" fill="white" opacity="0.5" />
+                    </svg>
+                </div>
+                <div class="icon-info">
+                    <h2>Snap<span>AI</span></h2>
+                    <p>The icon combines a lightning bolt — representing instant, snap-quick AI responses — with
+                        selection brackets that nod to the text-selection interaction. The indigo-to-violet gradient
+                        conveys intelligence and modernity.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ICON SIZES -->
+        <section class="section">
+            <div class="section-title">Icon Sizes — Chrome Web Store</div>
+            <div class="sizes-grid">
+                <!-- 16px -->
+                <div class="size-item">
+                    <div class="icon-wrapper">
+                        <svg width="16" height="16" viewBox="0 0 128 128" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="128" height="128" rx="28" fill="url(#bgGrad16)" />
+                            <path d="M72 34 L54 62 L66 62 L56 94 L80 58 L66 58 L78 34 Z" fill="white" />
+                            <defs>
+                                <linearGradient id="bgGrad16" x1="0" y1="0" x2="128" y2="128"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4F46E5" />
+                                    <stop offset="1" stop-color="#7C3AED" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="size-label">16 × 16</span>
+                </div>
+                <!-- 32px -->
+                <div class="size-item">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 128 128" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="128" height="128" rx="28" fill="url(#bgGrad32)" />
+                            <path d="M72 34 L54 62 L66 62 L56 94 L80 58 L66 58 L78 34 Z" fill="white" />
+                            <defs>
+                                <linearGradient id="bgGrad32" x1="0" y1="0" x2="128" y2="128"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4F46E5" />
+                                    <stop offset="1" stop-color="#7C3AED" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="size-label">32 × 32</span>
+                </div>
+                <!-- 48px -->
+                <div class="size-item">
+                    <div class="icon-wrapper">
+                        <svg width="48" height="48" viewBox="0 0 128 128" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="128" height="128" rx="28" fill="url(#bgGrad48)" />
+                            <rect width="128" height="128" rx="28" fill="url(#sheen48)" />
+                            <path d="M32 44 L32 36 Q32 32 36 32 L44 32" stroke="white" stroke-opacity="0.5"
+                                stroke-width="3" stroke-linecap="round" fill="none" />
+                            <path d="M96 84 L96 92 Q96 96 92 96 L84 96" stroke="white" stroke-opacity="0.5"
+                                stroke-width="3" stroke-linecap="round" fill="none" />
+                            <path d="M72 34 L54 62 L66 62 L56 94 L80 58 L66 58 L78 34 Z" fill="white" />
+                            <circle cx="88" cy="38" r="2.5" fill="white" opacity="0.7" />
+                            <defs>
+                                <linearGradient id="bgGrad48" x1="0" y1="0" x2="128" y2="128"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4F46E5" />
+                                    <stop offset="1" stop-color="#7C3AED" />
+                                </linearGradient>
+                                <linearGradient id="sheen48" x1="0" y1="0" x2="128" y2="128"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="white" stop-opacity="0.15" />
+                                    <stop offset="0.5" stop-color="white" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="size-label">48 × 48</span>
+                </div>
+                <!-- 128px -->
+                <div class="size-item">
+                    <div class="icon-wrapper">
+                        <svg width="128" height="128" viewBox="0 0 128 128" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="128" height="128" rx="28" fill="url(#bgGradF)" />
+                            <rect width="128" height="128" rx="28" fill="url(#sheenF)" />
+                            <path d="M32 44 L32 36 Q32 32 36 32 L44 32" stroke="white" stroke-opacity="0.5"
+                                stroke-width="3" stroke-linecap="round" fill="none" />
+                            <path d="M96 84 L96 92 Q96 96 92 96 L84 96" stroke="white" stroke-opacity="0.5"
+                                stroke-width="3" stroke-linecap="round" fill="none" />
+                            <path d="M72 34 L54 62 L66 62 L56 94 L80 58 L66 58 L78 34 Z" fill="white" />
+                            <circle cx="88" cy="38" r="2.5" fill="white" opacity="0.7" />
+                            <circle cx="94" cy="48" r="1.5" fill="white" opacity="0.5" />
+                            <circle cx="38" cy="86" r="2" fill="white" opacity="0.5" />
+                            <defs>
+                                <linearGradient id="bgGradF" x1="0" y1="0" x2="128" y2="128"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4F46E5" />
+                                    <stop offset="1" stop-color="#7C3AED" />
+                                </linearGradient>
+                                <linearGradient id="sheenF" x1="0" y1="0" x2="128" y2="128"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="white" stop-opacity="0.15" />
+                                    <stop offset="0.5" stop-color="white" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="size-label">128 × 128</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOGO VARIATIONS -->
+        <section class="section">
+            <div class="section-title">Logo Variations</div>
+            <div class="logo-row">
+                <!-- Dark bg -->
+                <div class="logo-card dark">
+                    <svg width="220" height="52" viewBox="0 0 220 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoIconG1" x1="0" y1="0" x2="48" y2="48"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#4F46E5" />
+                                <stop offset="1" stop-color="#7C3AED" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="48" height="48" rx="12" fill="url(#logoIconG1)" />
+                        <path d="M27 10 L20 23 L24.5 23 L21 36 L30 22 L25 22 L29.5 10 Z" fill="white" />
+                        <path d="M12 16 L12 13 Q12 11 14 11 L17 11" stroke="white" stroke-opacity="0.5"
+                            stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        <path d="M36 32 L36 35 Q36 37 34 37 L31 37" stroke="white" stroke-opacity="0.5"
+                            stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        <!-- Text -->
+                        <text x="62" y="22" font-family="Outfit, sans-serif" font-weight="700" font-size="22"
+                            fill="#F1F0F5" letter-spacing="-0.5">Snap</text>
+                        <text x="116" y="22" font-family="Outfit, sans-serif" font-weight="700" font-size="22"
+                            fill="url(#logoIconG1)" letter-spacing="-0.5">AI</text>
+                        <text x="62" y="40" font-family="DM Sans, sans-serif" font-weight="400" font-size="11"
+                            fill="#9291A5" letter-spacing="0.5">Instant AI Insights</text>
+                    </svg>
+                </div>
+                <!-- Light bg -->
+                <div class="logo-card light">
+                    <svg width="220" height="52" viewBox="0 0 220 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoIconG2" x1="0" y1="0" x2="48" y2="48"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#4F46E5" />
+                                <stop offset="1" stop-color="#7C3AED" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="48" height="48" rx="12" fill="url(#logoIconG2)" />
+                        <path d="M27 10 L20 23 L24.5 23 L21 36 L30 22 L25 22 L29.5 10 Z" fill="white" />
+                        <path d="M12 16 L12 13 Q12 11 14 11 L17 11" stroke="white" stroke-opacity="0.5"
+                            stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        <path d="M36 32 L36 35 Q36 37 34 37 L31 37" stroke="white" stroke-opacity="0.5"
+                            stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        <text x="62" y="22" font-family="Outfit, sans-serif" font-weight="700" font-size="22"
+                            fill="#1A1A24" letter-spacing="-0.5">Snap</text>
+                        <text x="116" y="22" font-family="Outfit, sans-serif" font-weight="700" font-size="22"
+                            fill="url(#logoIconG2)" letter-spacing="-0.5">AI</text>
+                        <text x="62" y="40" font-family="DM Sans, sans-serif" font-weight="400" font-size="11"
+                            fill="#6B6A80" letter-spacing="0.5">Instant AI Insights</text>
+                    </svg>
+                </div>
+                <!-- Gradient bg -->
+                <div class="logo-card gradient">
+                    <svg width="220" height="52" viewBox="0 0 220 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="48" height="48" rx="12" fill="white" fill-opacity="0.2" />
+                        <path d="M27 10 L20 23 L24.5 23 L21 36 L30 22 L25 22 L29.5 10 Z" fill="white" />
+                        <path d="M12 16 L12 13 Q12 11 14 11 L17 11" stroke="white" stroke-opacity="0.4"
+                            stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        <path d="M36 32 L36 35 Q36 37 34 37 L31 37" stroke="white" stroke-opacity="0.4"
+                            stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        <text x="62" y="22" font-family="Outfit, sans-serif" font-weight="700" font-size="22"
+                            fill="white" letter-spacing="-0.5">Snap</text>
+                        <text x="116" y="22" font-family="Outfit, sans-serif" font-weight="700" font-size="22"
+                            fill="white" fill-opacity="0.8" letter-spacing="-0.5">AI</text>
+                        <text x="62" y="40" font-family="DM Sans, sans-serif" font-weight="400" font-size="11"
+                            fill="white" fill-opacity="0.7" letter-spacing="0.5">Instant AI Insights</text>
+                    </svg>
+                </div>
+                <!-- Pure dark -->
+                <div class="logo-card dark-solid">
+                    <svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoIconG4" x1="0" y1="0" x2="36" y2="36"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#4F46E5" />
+                                <stop offset="1" stop-color="#7C3AED" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="36" height="36" rx="9" fill="url(#logoIconG4)" />
+                        <path d="M20.5 7.5 L15 17.5 L18.5 17.5 L15.5 27 L23 16.5 L19 16.5 L22.5 7.5 Z" fill="white" />
+                        <text x="48" y="25" font-family="Outfit, sans-serif" font-weight="700" font-size="24"
+                            fill="#F1F0F5" letter-spacing="-0.5">Snap</text>
+                        <text x="112" y="25" font-family="Outfit, sans-serif" font-weight="700" font-size="24"
+                            fill="url(#logoIconG4)" letter-spacing="-0.5">AI</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLOR PALETTE -->
+        <section class="section">
+            <div class="section-title">Color Palette</div>
+            <div class="palette">
+                <div class="color-chip">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #4F46E5, #5B52F0);"></div>
+                    <div class="color-meta">
+                        <div class="color-name">Indigo Primary</div>
+                        <div class="color-hex">#4F46E5</div>
+                    </div>
+                </div>
+                <div class="color-chip">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #7C3AED, #8B4CF6);"></div>
+                    <div class="color-meta">
+                        <div class="color-name">Violet Secondary</div>
+                        <div class="color-hex">#7C3AED</div>
+                    </div>
+                </div>
+                <div class="color-chip">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #06D6A0, #0EEEB8);"></div>
+                    <div class="color-meta">
+                        <div class="color-name">Mint Accent</div>
+                        <div class="color-hex">#06D6A0</div>
+                    </div>
+                </div>
+                <div class="color-chip">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #0F0F14, #1A1A24);"></div>
+                    <div class="color-meta">
+                        <div class="color-name">Deep Dark</div>
+                        <div class="color-hex">#0F0F14</div>
+                    </div>
+                </div>
+                <div class="color-chip">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #F1F0F5, #E8E7EE);"></div>
+                    <div class="color-meta">
+                        <div class="color-name">Cloud White</div>
+                        <div class="color-hex">#F1F0F5</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TYPOGRAPHY -->
+        <section class="section">
+            <div class="section-title">Typography</div>
+            <div class="type-showcase">
+                <div class="type-card">
+                    <div class="type-row">
+                        <span class="type-sample-outfit">SnapAI — Outfit Bold</span>
+                        <span class="type-meta">Display / Headings<br />Outfit 700</span>
+                    </div>
+                    <div class="type-row">
+                        <span class="type-sample-dm">Body text uses DM Sans</span>
+                        <span class="type-meta">Body / UI Text<br />DM Sans 400</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+
+</html>

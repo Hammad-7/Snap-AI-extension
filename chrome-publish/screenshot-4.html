@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0">
+    <title>SnapAI — Screenshot 4 (1280x800)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1280px; height: 800px; overflow: hidden; }
+
+        body {
+            background: #0F0F14;
+            font-family: 'DM Sans', sans-serif;
+            color: #F1F0F5;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            right: 100px;
+            background: radial-gradient(circle, rgba(6, 214, 160, 0.06) 0%, transparent 60%);
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -50px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 60%);
+        }
+
+        .layout {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            padding: 0 72px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .left {
+            flex: 0 0 340px;
+        }
+
+        .icon-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-name span {
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(6, 214, 160, 0.12);
+            border: 1px solid rgba(6, 214, 160, 0.2);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #06D6A0;
+            margin-bottom: 20px;
+        }
+
+        .headline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .headline em {
+            font-style: normal;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            color: #9291A5;
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 320px;
+            margin-bottom: 28px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #9291A5;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(79, 70, 229, 0.12);
+            border: 1px solid rgba(79, 70, 229, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #7C3AED;
+        }
+
+        .step strong {
+            color: #F1F0F5;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .screenshot-frame {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            flex: 1;
+        }
+
+        .screenshot-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .screenshot-frame.secondary {
+            flex: 0 0 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="layout">
+        <div class="left">
+            <div class="icon-row">
+                <svg width="36" height="36" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="s4Bg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#4F46E5" /><stop offset="1" stop-color="#7C3AED" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="128" height="128" rx="28" fill="url(#s4Bg)" />
+                    <path d="M32 44 L32 36 Q32 32 36 32 L44 32" stroke="white" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round" fill="none" />
+                    <path d="M96 84 L96 92 Q96 96 92 96 L84 96" stroke="white" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round" fill="none" />
+                    <path d="M72 34 L54 62 L66 62 L56 94 L80 58 L66 58 L78 34 Z" fill="white" />
+                    <circle cx="88" cy="38" r="2.5" fill="white" opacity="0.7" />
+                </svg>
+                <div class="brand-name">Snap<span>AI</span></div>
+            </div>
+
+            <div class="step-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                Setup
+            </div>
+
+            <div class="headline"><em>Easy</em><br>Setup</div>
+
+            <p class="description">Get started in under a minute. Pick your AI provider, paste your API key, and you're ready to go.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <span><strong>Choose</strong> your AI provider</span>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <span><strong>Paste</strong> your API key</span>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <span><strong>Select</strong> a model and go</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="screenshot-frame">
+                <img src="Screenshot 2026-02-25 at 10.59.37.png" alt="SnapAI onboarding settings">
+            </div>
+            <div class="screenshot-frame secondary">
+                <img src="Screenshot 2026-02-25 at 10.59.46.png" alt="SnapAI provider configuration">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

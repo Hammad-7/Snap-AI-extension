@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapAI</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </span>
+      <h1>SnapAI</h1>
+    </div>
+    <div class="header-right">
+      <button id="settings-btn" class="icon-btn" title="Settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="context-bar" class="context-bar" style="display:none;">
+    <div class="context-label">Selected text</div>
+    <div id="context-text" class="context-text"></div>
+  </div>
+
+  <main id="response-area" class="response-area">
+    <div class="empty-state">
+      <div class="empty-state-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C7D2FE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </div>
+      <p>Select text on any webpage and choose an action to get started.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <button id="new-chat-btn" class="new-chat-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      New Conversation
+    </button>
+    <div class="input-row">
+      <input type="text" id="followup-input" class="followup-input" placeholder="Ask a follow-up question...">
+      <button id="followup-send" class="send-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="provider-bar">
+      <div id="provider-icons" class="provider-icons"></div>
+      <select id="model-select" class="model-select"></select>
+    </div>
+  </footer>
+
+  <script src="../shared/constants.js"></script>
+  <script src="../shared/providers.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="../shared/markdown.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>
