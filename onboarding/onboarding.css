@@ -11,41 +11,36 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 48px 20px;
+  padding: 24px 20px;
 }
 
 .container {
-  max-width: 640px;
+  max-width: 720px;
   width: 100%;
 }
 
 .hero {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
-  background: #4F46E5;
-  border-radius: 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
-  box-shadow: 0 8px 32px rgba(79, 70, 229, 0.25);
+  margin-bottom: 10px;
 }
 
 .hero h1 {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   color: #1E1B4B;
 }
 
 .subtitle {
   color: #64748B;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1.55;
   max-width: 480px;
   margin: 0 auto;
@@ -54,7 +49,7 @@ body {
 .setup-section {
   background: #FFFFFF;
   border-radius: 18px;
-  padding: 32px;
+  padding: 22px 26px;
   border: 1px solid #E2E8F0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
@@ -69,22 +64,22 @@ body {
 .section-desc {
   font-size: 13px;
   color: #64748B;
-  margin-bottom: 26px;
+  margin-bottom: 16px;
   line-height: 1.5;
 }
 
 .providers-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .provider-card {
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 13px;
-  padding: 18px;
+  padding: 11px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -97,7 +92,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 13px;
+  margin-bottom: 7px;
 }
 
 .provider-name-row {
@@ -138,7 +133,7 @@ body {
 .provider-fields {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
 }
 
 .field-label {
@@ -156,7 +151,7 @@ body {
 
 .key-input {
   flex: 1;
-  padding: 9px 13px;
+  padding: 7px 11px;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 9px;
@@ -177,7 +172,7 @@ body {
 }
 
 .toggle-vis-btn {
-  padding: 9px;
+  padding: 7px;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 9px;
@@ -225,7 +220,7 @@ body {
 
 .select-input {
   width: 100%;
-  padding: 9px 36px 9px 13px;
+  padding: 7px 36px 7px 11px;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 9px;
@@ -250,49 +245,65 @@ body {
 }
 
 .active-provider-section {
-  margin-bottom: 22px;
+  margin-bottom: 0;
+}
+
+.ready-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #16A34A;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 20px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  border-width: 0;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ready-banner.visible {
+  max-height: 80px;
+  opacity: 1;
+  padding: 10px 14px;
+  margin-top: 12px;
+  border-width: 1px;
 }
 
 .active-provider-section .field-label {
   margin-bottom: 8px;
 }
 
-.save-btn {
-  width: 100%;
-  padding: 13px;
-  background: #4F46E5;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 11px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: inherit;
-  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.25);
+.provider-status.saved {
+  background: #DCFCE7;
+  color: #16A34A;
+  border: 1px solid #86EFAC;
+  animation: saved-flash 0.3s ease;
 }
 
-.save-btn:hover {
-  background: #4338CA;
+@keyframes saved-flash {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
-.save-btn:active {
-  transform: scale(0.98);
+@media (max-width: 480px) {
+  .providers-list {
+    grid-template-columns: 1fr;
+  }
 }
-
-.status-msg {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 14px;
-  min-height: 20px;
-}
-
-.status-msg.success { color: #16A34A; }
-.status-msg.error { color: #DC2626; }
 
 .footer-note {
   text-align: center;
-  margin-top: 28px;
+  margin-top: 16px;
   font-size: 12px;
   color: #94A3B8;
   display: flex;

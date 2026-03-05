@@ -1,10 +1,17 @@
 (() => {
   const providersList = document.getElementById("providers-list");
   const activeProviderSelect = document.getElementById("active-provider");
-  const saveBtn = document.getElementById("save-btn");
-  const statusMsg = document.getElementById("status-msg");
+  const readyBanner = document.getElementById("ready-banner");
 
   const providerInputs = {};
+
+  function debounce(fn, ms) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), ms);
+    };
+  }
 
   function renderProviders() {
     for (const [id, provider] of Object.entries(PROVIDERS)) {
@@ -66,7 +73,49 @@
           providerInputs[id].toggleBtn.textContent = "Show";
         }
       });
+
+      // Auto-save on typing (debounced) and Enter key
+      const debouncedSave = debounce(() => saveProvider(id), 300);
+      providerInputs[id].keyInput.addEventListener("input", debouncedSave);
+      providerInputs[id].keyInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          saveProvider(id);
+        }
+      });
+
+      // Auto-save on model change
+      providerInputs[id].modelSelect.addEventListener("change", () => saveProvider(id));
     }
+  }
+
+  async function saveProvider(id) {
+    const refs = providerInputs[id];
+    const apiKey = refs.keyInput.value.trim();
+    const selectedModel = refs.modelSelect.value;
+
+    await Storage.setProviderConfig(id, { apiKey, selectedModel });
+
+    if (apiKey) {
+      refs.statusEl.textContent = "Saved";
+      refs.statusEl.className = "provider-status saved";
+
+      setTimeout(() => {
+        refs.statusEl.textContent = "Configured";
+        refs.statusEl.className = "provider-status configured";
+      }, 1200);
+
+      // Auto-select default provider if none selected
+      if (!activeProviderSelect.value) {
+        activeProviderSelect.value = id;
+        await Storage.setActiveProvider(id);
+      }
+    } else {
+      refs.statusEl.textContent = "Not configured";
+      refs.statusEl.className = "provider-status not-configured";
+    }
+
+    updateReadyBanner();
   }
 
   async function loadExistingConfigs() {
@@ -87,60 +136,24 @@
     if (activeProvider) {
       activeProviderSelect.value = activeProvider;
     }
+
+    updateReadyBanner();
   }
 
-  async function save() {
-    let hasKey = false;
-
-    for (const [id, refs] of Object.entries(providerInputs)) {
-      const apiKey = refs.keyInput.value.trim();
-      const selectedModel = refs.modelSelect.value;
-
-      await Storage.setProviderConfig(id, { apiKey, selectedModel });
-
-      if (apiKey) {
-        hasKey = true;
-        refs.statusEl.textContent = "Configured";
-        refs.statusEl.className = "provider-status configured";
-      } else {
-        refs.statusEl.textContent = "Not configured";
-        refs.statusEl.className = "provider-status not-configured";
-      }
-    }
-
-    if (!hasKey) {
-      statusMsg.textContent = "Please enter at least one API key.";
-      statusMsg.className = "status-msg error";
-      return;
-    }
-
-    const activeId = activeProviderSelect.value;
-    if (!activeId) {
-      // Auto-select first configured provider
-      for (const [id, refs] of Object.entries(providerInputs)) {
-        if (refs.keyInput.value.trim()) {
-          activeProviderSelect.value = id;
-          break;
-        }
-      }
-    }
-
-    const finalActive = activeProviderSelect.value;
-    if (finalActive) {
-      const activeConfig = await Storage.getProviderConfig(finalActive);
-      if (!activeConfig.apiKey) {
-        statusMsg.textContent = "The selected default provider has no API key.";
-        statusMsg.className = "status-msg error";
-        return;
-      }
-      await Storage.setActiveProvider(finalActive);
-    }
-
-    statusMsg.textContent = "Settings saved! You can close this tab and start using SnapAI.";
-    statusMsg.className = "status-msg success";
+  function updateReadyBanner() {
+    const hasKey = Object.values(providerInputs).some(r => r.keyInput.value.trim());
+    const hasDefault = !!activeProviderSelect.value;
+    readyBanner.classList.toggle("visible", hasKey && hasDefault);
   }
 
-  saveBtn.addEventListener("click", save);
+  // Auto-save active provider on change
+  activeProviderSelect.addEventListener("change", () => {
+    const value = activeProviderSelect.value;
+    if (value) {
+      Storage.setActiveProvider(value);
+    }
+    updateReadyBanner();
+  });
 
   renderProviders();
   loadExistingConfigs();

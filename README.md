@@ -139,9 +139,7 @@ Read the full [Privacy Policy](privacy-policy.html).
 | Permission | Why |
 |------------|-----|
 | `storage` | Save your API keys and preferences locally |
-| `activeTab` | Read selected text on the current tab |
 | `sidePanel` | Open the conversation side panel |
-| `contextMenus` | Add AI actions to the right-click menu |
 | Host permissions | Send requests to AI provider APIs (OpenAI, Anthropic, Gemini, DeepSeek) |
 
 ## Contributing

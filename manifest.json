@@ -1,13 +1,11 @@
 {
   "manifest_version": 3,
   "name": "SnapAI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Select text on any webpage and instantly get AI-powered explanations, summaries, translations, and more.",
   "permissions": [
     "storage",
-    "sidePanel",
-    "activeTab",
-    "contextMenus"
+    "sidePanel"
   ],
   "host_permissions": [
     "https://api.openai.com/*",

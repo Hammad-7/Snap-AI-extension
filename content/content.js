@@ -5,6 +5,10 @@
   let responseText = "";
   let selectedText = "";
   let lastMouseUpTime = 0;
+  let isExpanded = false;
+  let isActionActive = false;
+  let expandTimer = null;
+  let collapseTimer = null;
 
   const SHADOW_STYLES = `
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -319,6 +323,31 @@
       background: #CBD5E1;
       border-radius: 2px;
     }
+
+    .snapai-collapsed {
+      padding: 3px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(226, 232, 240, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      animation: snapai-fadein 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.15s ease, filter 0.15s ease;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+    }
+
+    .snapai-collapsed:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 3px 8px rgba(79, 70, 229, 0.25));
+    }
+
+    .snapai-collapsed svg {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
   `;
 
   const ARROW_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>`;
@@ -326,6 +355,10 @@
   const EXTERNAL_LINK_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
 
   function removeToolbar() {
+    clearTimeout(expandTimer);
+    clearTimeout(collapseTimer);
+    expandTimer = null;
+    collapseTimer = null;
     if (hostEl) {
       hostEl.remove();
       hostEl = null;
@@ -336,19 +369,11 @@
       currentPort = null;
     }
     responseText = "";
+    isExpanded = false;
+    isActionActive = false;
   }
 
-  function createToolbar(x, y) {
-    removeToolbar();
-
-    hostEl = document.createElement("div");
-    hostEl.className = "snapai-host";
-    shadowRoot = hostEl.attachShadow({ mode: "closed" });
-
-    const style = document.createElement("style");
-    style.textContent = SHADOW_STYLES;
-    shadowRoot.appendChild(style);
-
+  function buildExpandedToolbar() {
     const toolbar = document.createElement("div");
     toolbar.className = "snapai-toolbar";
 
@@ -361,6 +386,7 @@
       btn.innerHTML = `<span class="icon">${action.icon}</span>${action.label}`;
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
+        isActionActive = true;
         handleAction(action.id, toolbar);
       });
       actionsRow.appendChild(btn);
@@ -377,9 +403,11 @@
     input.addEventListener("keydown", (e) => {
       e.stopPropagation();
       if (e.key === "Enter" && input.value.trim()) {
+        isActionActive = true;
         handleAction(null, toolbar, input.value.trim());
       }
     });
+    input.addEventListener("focus", () => { isActionActive = true; });
 
     const sendBtn = document.createElement("button");
     sendBtn.className = "snapai-send-btn";
@@ -387,6 +415,7 @@
     sendBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (input.value.trim()) {
+        isActionActive = true;
         handleAction(null, toolbar, input.value.trim());
       }
     });
@@ -469,29 +498,118 @@
     providerBar.appendChild(modelSel);
     toolbar.appendChild(providerBar);
 
+    return toolbar;
+  }
+
+  function expandToolbar() {
+    if (!shadowRoot || isExpanded) return;
+    isExpanded = true;
+
+    // Remove collapsed icon
+    const collapsed = shadowRoot.querySelector(".snapai-collapsed");
+    if (collapsed) collapsed.remove();
+
+    // Build and append expanded toolbar
+    const toolbar = buildExpandedToolbar();
     shadowRoot.appendChild(toolbar);
 
-    // Position the toolbar
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-    hostEl.style.left = `${x + scrollX}px`;
-    hostEl.style.top = `${y + scrollY + 8}px`;
+    // Reposition after expand since size changed
+    repositionHost();
+  }
 
-    document.body.appendChild(hostEl);
+  function collapseToolbar() {
+    if (!shadowRoot || !isExpanded || isActionActive) return;
+    isExpanded = false;
 
-    // Adjust if off-screen
+    // Remove expanded toolbar
+    const toolbar = shadowRoot.querySelector(".snapai-toolbar");
+    if (toolbar) toolbar.remove();
+
+    // Re-add collapsed icon
+    const icon = buildCollapsedIcon();
+    shadowRoot.appendChild(icon);
+
+    // Reposition after collapse
+    repositionHost();
+  }
+
+  function buildCollapsedIcon() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "snapai-collapsed";
+    wrapper.innerHTML = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="28" rx="7" fill="#4F46E5"/><path d="M16.5 6L9 15.5h5.5L13 22l8-9.5h-5.5L16.5 6z" fill="#fff"/></svg>`;
+    return wrapper;
+  }
+
+  function repositionHost() {
+    if (!hostEl) return;
     requestAnimationFrame(() => {
       const rect = hostEl.getBoundingClientRect();
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
       if (rect.right > window.innerWidth) {
         hostEl.style.left = `${window.innerWidth - rect.width - 10 + scrollX}px`;
       }
       if (rect.left < 0) {
         hostEl.style.left = `${10 + scrollX}px`;
       }
+      // If toolbar goes above viewport, push it down
+      if (rect.top < 0) {
+        hostEl.style.top = `${10 + scrollY}px`;
+      }
       if (rect.bottom > window.innerHeight) {
-        hostEl.style.top = `${y + scrollY - rect.height - 8}px`;
+        hostEl.style.top = `${window.innerHeight - rect.height - 10 + scrollY}px`;
       }
     });
+  }
+
+  function createToolbar(x, y) {
+    removeToolbar();
+
+    hostEl = document.createElement("div");
+    hostEl.className = "snapai-host";
+    shadowRoot = hostEl.attachShadow({ mode: "closed" });
+
+    const style = document.createElement("style");
+    style.textContent = SHADOW_STYLES;
+    shadowRoot.appendChild(style);
+
+    // Start with collapsed icon
+    const icon = buildCollapsedIcon();
+    shadowRoot.appendChild(icon);
+
+    // Position right above the cursor
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    hostEl.style.left = `${x + scrollX + 5}px`;
+    hostEl.style.top = `${y + scrollY - 36}px`;
+
+    document.body.appendChild(hostEl);
+
+    // Hover expand/collapse on the host element
+    hostEl.addEventListener("mouseenter", () => {
+      clearTimeout(collapseTimer);
+      collapseTimer = null;
+      if (!isExpanded) {
+        expandTimer = setTimeout(() => {
+          expandToolbar();
+          expandTimer = null;
+        }, 200);
+      }
+    });
+
+    hostEl.addEventListener("mouseleave", () => {
+      clearTimeout(expandTimer);
+      expandTimer = null;
+      if (isExpanded && !isActionActive) {
+        collapseTimer = setTimeout(() => {
+          collapseToolbar();
+          collapseTimer = null;
+        }, 300);
+      }
+    });
+
+    // Adjust if off-screen
+    repositionHost();
   }
 
   function handleAction(actionId, toolbar, customQuestion) {
@@ -615,9 +733,7 @@
       }
 
       selectedText = text;
-      const range = selection.getRangeAt(0);
-      const rect = range.getBoundingClientRect();
-      createToolbar(rect.left, rect.bottom);
+      createToolbar(e.clientX, e.clientY);
     }, 10);
   });
 

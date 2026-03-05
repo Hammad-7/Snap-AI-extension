@@ -56,12 +56,6 @@ Used to save the user's API keys, selected AI provider, chosen model, and prefer
 ### `sidePanel`
 Opens the SnapAI side panel where users can view AI responses in a full conversation format with follow-up support, without leaving the current page.
 
-### `activeTab`
-Accesses the currently active tab to read user-selected text when the user triggers an AI action from the floating toolbar or context menu.
-
-### `contextMenus`
-Adds SnapAI actions (Explain, Summarize, Fix Grammar, Key Points) to the browser's right-click context menu so users can analyze selected text directly.
-
 ### Host Permission: `https://api.openai.com/*`
 Sends the user's selected text to the OpenAI API for AI processing when the user has configured OpenAI as their provider.
 
